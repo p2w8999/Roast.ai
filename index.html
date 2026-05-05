@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoastAI - VIP Digital Destruction</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background and Effects -->
+    <canvas id="bgCanvas" class="matrix-canvas"></canvas>
+    <div class="crt-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-nav">
+        <div class="logo">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+            <span>RoastAI</span>
+        </div>
+        <div class="user-section">
+            <div id="userInfo" class="user-info hidden">
+                <span class="username" id="navUser"></span>
+                <span class="token-pill"><i class="fa-solid fa-coins"></i> <span id="navTokens"></span></span>
+                <button id="dailyRewardBtn" class="nav-btn daily-btn"><i class="fa-solid fa-gift"></i></button>
+                <button id="logoutBtn" class="nav-btn sm-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+            <button id="loginModalBtn" class="nav-btn">Login / Register</button>
+            <button id="adminModalBtn" class="nav-btn admin-btn"><i class="fa-solid fa-lock"></i></button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header>
+            <h1>Premium Destruction</h1>
+            <p>Spend tokens to unleash different tiers of digital ruin.</p>
+        </header>
+
+        <section id="inputBox" class="glass-panel">
+            <h2>Select Your Victim & Intensity</h2>
+            <form id="roastForm">
+
+                <div class="level-selector">
+                    <label class="level-card mild-theme">
+                        <input type="radio" name="roastLevel" value="mild">
+                        <div class="card-content">
+                            <i class="fa-solid fa-mug-hot"></i>
+                            <span class="lvl-title">Mild</span>
+                            <span class="lvl-cost">5 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                    <label class="level-card goofy-theme">
+                        <input type="radio" name="roastLevel" value="goofy" checked>
+                        <div class="card-content">
+                            <i class="fa-regular fa-face-laugh-squint"></i>
+                            <span class="lvl-title">Goofy</span>
+                            <span class="lvl-cost">10 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                    <label class="level-card normal-theme">
+                        <input type="radio" name="roastLevel" value="normal">
+                        <div class="card-content">
+                            <i class="fa-solid fa-face-meh"></i>
+                            <span class="lvl-title">Normal</span>
+                            <span class="lvl-cost">20 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                    <label class="level-card brutal-theme">
+                        <input type="radio" name="roastLevel" value="brutal">
+                        <div class="card-content">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                            <span class="lvl-title">Brutal</span>
+                            <span class="lvl-cost">50 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                    <label class="level-card nuclear-theme">
+                        <input type="radio" name="roastLevel" value="nuclear">
+                        <div class="card-content">
+                            <i class="fa-solid fa-radiation"></i>
+                            <span class="lvl-title">Nuclear</span>
+                            <span class="lvl-cost">75 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                    <label class="level-card god-theme">
+                        <input type="radio" name="roastLevel" value="god">
+                        <div class="card-content">
+                            <i class="fa-solid fa-skull-crossbones"></i>
+                            <span class="lvl-title">God</span>
+                            <span class="lvl-cost">100 <i class="fa-solid fa-coins"></i></span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="controls-row">
+                    <div class="input-group">
+                        <i class="fa-solid fa-list-ol"></i>
+                        <input type="number" id="linesAmount" title="Lines Amount" placeholder="Lines (1-5)" min="1" max="5" value="1" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fa-solid fa-gauge-high"></i>
+                        <select id="typingSpeed" class="custom-select" title="Typing Speed">
+                            <option value="50">Slow</option>
+                            <option value="30" selected>Normal</option>
+                            <option value="10">Fast</option>
+                            <option value="0">Instant</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-crosshairs"></i>
+                    <input type="text" id="targetName" placeholder="Target Name or @handle" required autocomplete="off">
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    <span>Initiate Sequence</span>
+                    <i class="fa-solid fa-bolt"></i>
+                </button>
+                <div id="tokenError" class="error-msg hidden">Insufficient tokens. Contact admin or use a lower tier.
+                </div>
+            </form>
+        </section>
+
+        <!-- Hall of Shame -->
+        <section id="hallOfShame" class="glass-panel">
+            <h2><i class="fa-solid fa-skull"></i> Hall of Shame</h2>
+            <div id="shameList" class="shame-list">
+                <p class="text-muted">No victims yet. Be the first to initiate destruction.</p>
+            </div>
+        </section>
+
+        <!-- Analysis & Result (Mostly same structure) -->
+        <section id="analysisBox" class="glass-panel hidden">
+            <div class="terminal-header">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="terminal-title">AI Processing Core</div>
+            </div>
+            
+            <div class="analysis-layout">
+                <div class="sources-container" id="sourcesContainer"></div>
+                <div id="terminalOutput" class="terminal-scroller"></div>
+            </div>
+            
+            <div class="status-text" id="masterStatus">Connecting to global networks...</div>
+        </section>
+
+        <section id="resultBox" class="glass-panel hidden result-panel">
+            <div class="result-header">
+                <i class="fa-solid fa-biohazard"></i>
+                <h2 id="resultTierTitle">Target Destroyed</h2>
+            </div>
+            <div class="roast-content">
+                <p id="roastOutput"></p>
+                <div class="cursor"></div>
+            </div>
+            <button id="resetBtn" class="secondary-btn">
+                <i class="fa-solid fa-rotate-right"></i> Annihilate Another
+            </button>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- User Login Modal -->
+    <div id="loginModal" class="modal-overlay hidden">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h3>User Login</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="loginForm">
+                <p class="subtitle">Log in to track your tokens. New users get 500 tokens free.</p>
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="loginUsername" placeholder="Username" required>
+                </div>
+                <button type="submit">Access System</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal-overlay hidden">
+        <div class="modal glass-panel admin-modal-panel">
+            <div class="modal-header">
+                <h3>Admin Gateway</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Admin Login -->
+            <form id="adminLoginForm">
+                <div class="input-group">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <input type="text" id="adminUser" placeholder="Admin Username" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-key"></i>
+                    <input type="password" id="adminPass" placeholder="Admin Password" required>
+                </div>
+                <button type="submit" class="admin-theme-btn">Verify Credentials</button>
+                <div id="adminError" class="error-msg hidden">Invalid credentials.</div>
+            </form>
+
+            <!-- Admin Dashboard (Hidden by default) -->
+            <div id="adminDashboard" class="hidden">
+                <p class="subtitle" style="color: #00ffcc;">Welcome Admin. Manipulate token economies below.</p>
+
+                <form id="tokenForm">
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" id="targetUserManage" placeholder="Target Username" required>
+                    </div>
+
+                    <div class="admin-actions">
+                        <select id="tokenAction">
+                            <option value="set">Set Tokens To</option>
+                            <option value="add">Add Tokens</option>
+                        </select>
+                        <div class="input-group sm-input">
+                            <input type="number" id="tokenAmount" placeholder="Amount" required min="0">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="admin-theme-btn">Execute Modification</button>
+                    <div id="adminSuccess" class="success-msg hidden">Modification Applied.</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup Toast for generic messages -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
